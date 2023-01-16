@@ -1,0 +1,445 @@
+# The below code is for Braille 
+null=[[0,0],
+   [0,0],
+   [0,0]]
+a=[[1,0],
+   [0,0],
+   [0,0]]
+b=[[1,0],
+   [1,0],
+   [0,0]]
+c=[[1,1],
+   [0,0],
+   [0,0]]
+d=[[1,1],
+   [0,1],
+   [0,0]]
+e=[[1,0],
+   [0,1],
+   [0,0]]
+f=[[1, 1],
+   [1,0],
+   [0,0]]
+g=[[1,1],
+   [1,1],
+   [0,0]]
+h=[[1,0],
+   [1,1],
+   [0,0]]
+i=[[0,1],
+   [1,0],
+   [0,0]]
+j=[[0,1],
+   [1,1],
+   [0,0]]
+k=[[1,0],
+   [0,0],
+   [1,0]]
+l=[[1,0],
+   [1,0],
+   [1,0]]
+m=[[1,1],
+   [0,0],
+   [1,0]]
+n=[[1,1],
+   [0,1],
+   [1,0]]
+o=[[1,0],
+   [0,1],
+   [1,0]]
+p=[[1,1],
+   [1,0],
+   [1,0]]
+q=[[1,1],
+   [1,1],
+   [1,0]]
+r=[[1,0],
+   [1,1],
+   [1,0]]
+s=[[0,1],
+   [1,0],
+   [1,0]]
+t=[[0,1],
+   [1,1],
+   [1,0]]
+u=[[1,0],
+   [0,0],
+   [1,1]]
+v=[[1,0],
+   [1,0],
+   [1,1]]
+w=[[0,1],
+   [1,1],
+   [0,1]]
+x=[[1,1],
+   [0,0],
+   [1,1]]
+y=[[1,1],
+   [0,1],
+   [1,1]]
+z=[[1,0],
+   [0,1],
+   [1,1]]
+dot=[[0,0],
+   [1,1],
+   [0,1]]
+comma=[[0,0],
+   [1,0],
+   [0,0]]
+qstn=[[0,0],
+   [1,0],
+   [1,1]]
+exclm=[[0,0],
+   [1,1],
+   [1,0]]
+apos=[[0,0],
+   [0,0],
+   [1,0]]
+hyp=[[0,0],
+   [0,0],
+   [1,1]]
+# the above code is for Braille
+
+from picamera import PiCamera
+from time import sleep
+from PIL import Image
+import pytesseract
+from pytesseract import image_to_string  # we imported the OCR library
+import RPi.GPIO as GPIO
+
+
+# Set up the GPIO pins
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+GPIO.setup(2, GPIO.OUT,initial=GPIO.LOW)
+GPIO.setup(3, GPIO.OUT,initial=GPIO.LOW)
+GPIO.setup(4, GPIO.OUT,initial=GPIO.LOW)
+GPIO.setup(17, GPIO.OUT,initial=GPIO.LOW)
+GPIO.setup(27, GPIO.OUT,initial=GPIO.LOW)
+GPIO.setup(22, GPIO.OUT,initial=GPIO.LOW)
+
+
+camera=PiCamera()
+camera.start_preview()
+sleep(5)
+camera.capture('/home/pi/Desktop/picture.jpg')  # We capture the image here
+camera.stop_preview()
+
+
+text=image_to_string(Image.open('/home/pi/Desktop/picture.jpg'))  #here we extract the text from image
+new_file=open("extracted.txt", "w+")  # opening new text file
+print(text)
+new_file.write(str(text))  # write the extracted text into the newly opened text file
+new_file.close()
+
+text_ext=open("extracted.txt", "r")
+read_text=text_ext.read()  # opening the text file and reading the text
+read_text_lower=read_text.lowercase()
+len_of_text=len(read_text_lower)  # taking the length of the string
+print(len_of_text)
+new=open("newtext.txt","w+")
+for each in range(len_of_text):
+    letter=read_text_lower[each]
+    print(letter)
+    new.write(letter)
+    if letter== "a":
+        print(a)
+        GPIO.output(2, 1)
+        GPIO.output(3, 0)
+        GPIO.output(4, 0)
+        GPIO.output(17, 0)
+        GPIO.output(27, 0)
+        GPIO.output(22, 0)
+        sleep(1)
+    elif letter== "b":
+        print(b)
+        GPIO.output(2, 1)
+        GPIO.output(3, 0)
+        GPIO.output(4, 1)
+        GPIO.output(17, 0)
+        GPIO.output(27, 0)
+        GPIO.output(22, 0)
+        sleep(1)
+    elif letter== "c":
+        print(c)
+        GPIO.output(2, 1)
+        GPIO.output(3, 1)
+        GPIO.output(4, 0)
+        GPIO.output(17, 0)
+        GPIO.output(27, 0)
+        GPIO.output(22, 0)
+        sleep(1)
+    elif letter== "d":
+        print(d)
+        GPIO.output(2, 1)
+        GPIO.output(3, 1)
+        GPIO.output(4, 0)
+        GPIO.output(17, 1)
+        GPIO.output(27, 0)
+        GPIO.output(22, 0)
+        sleep(1)
+    elif letter== "e":
+        print(e)
+        GPIO.output(2, 1)
+        GPIO.output(3, 0)
+        GPIO.output(4, 0)
+        GPIO.output(17, 1)
+        GPIO.output(27, 0)
+        GPIO.output(22, 0)
+        sleep(1)
+    elif letter== "f":
+        print(f)
+        GPIO.output(2, 1)
+        GPIO.output(3, 1)
+        GPIO.output(4, 1)
+        GPIO.output(17, 0)
+        GPIO.output(27, 0)
+        GPIO.output(22, 0)
+        sleep(1)
+    elif letter== "g":
+        print(g)
+        GPIO.output(2, 1)
+        GPIO.output(3, 1)
+        GPIO.output(4, 1)
+        GPIO.output(17, 1)
+        GPIO.output(27, 0)
+        GPIO.output(22, 0)
+        sleep(1)
+    elif letter== "h":
+        print(h)
+        GPIO.output(2, 1)
+        GPIO.output(3, 0)
+        GPIO.output(4, 1)
+        GPIO.output(17, 1)
+        GPIO.output(27, 0)
+        GPIO.output(22, 0)
+        sleep(1)
+    elif letter== "i":
+        print(i)
+        GPIO.output(2, 0)
+        GPIO.output(3, 1)
+        GPIO.output(4, 1)
+        GPIO.output(17, 0)
+        GPIO.output(27, 0)
+        GPIO.output(22, 0)
+        sleep(1)
+    elif letter== "j":
+        print(j)
+        GPIO.output(2, 0)
+        GPIO.output(3, 1)
+        GPIO.output(4, 1)
+        GPIO.output(17, 1)
+        GPIO.output(27, 0)
+        GPIO.output(22, 0)
+        sleep(1)
+    elif letter== "k":
+        print(k)
+        GPIO.output(2, 1)
+        GPIO.output(3, 0)
+        GPIO.output(4, 0)
+        GPIO.output(17, 0)
+        GPIO.output(27, 1)
+        GPIO.output(22, 0)
+        sleep(1)
+    elif letter== "l":
+        print(l)
+        GPIO.output(2, 1)
+        GPIO.output(3, 0)
+        GPIO.output(4, 1)
+        GPIO.output(17, 0)
+        GPIO.output(27, 1)
+        GPIO.output(22, 0)
+        sleep(1)
+    elif letter== "m":
+        print(m)
+        GPIO.output(2, 1)
+        GPIO.output(3, 1)
+        GPIO.output(4, 0)
+        GPIO.output(17, 0)
+        GPIO.output(27, 1)
+        GPIO.output(22, 0)
+        sleep(1)
+    elif letter== "n":
+        print(n)
+        GPIO.output(2, 1)
+        GPIO.output(3, 1)
+        GPIO.output(4, 0)
+        GPIO.output(17, 1)
+        GPIO.output(27, 1)
+        GPIO.output(22, 0)
+        sleep(1)
+    elif letter== "o":
+        print(o)
+        GPIO.output(2, 1)
+        GPIO.output(3, 0)
+        GPIO.output(4, 0)
+        GPIO.output(17, 1)
+        GPIO.output(27, 1)
+        GPIO.output(22, 0)
+        sleep(1)
+    elif letter== "p":
+        print(p)
+        GPIO.output(2, 1)
+        GPIO.output(3, 1)
+        GPIO.output(4, 1)
+        GPIO.output(17, 0)
+        GPIO.output(27, 1)
+        GPIO.output(22, 0)
+        sleep(1)
+    elif letter== "q":
+        print(q)
+        GPIO.output(2, 1)
+        GPIO.output(3, 1)
+        GPIO.output(4, 1)
+        GPIO.output(17, 1)
+        GPIO.output(27, 1)
+        GPIO.output(22, 0)
+        sleep(1)
+    elif letter== "r":
+        print(r)
+        GPIO.output(2, 1)
+        GPIO.output(3, 0)
+        GPIO.output(4, 1)
+        GPIO.output(17, 1)
+        GPIO.output(27, 1)
+        GPIO.output(22, 0)
+        sleep(1)
+    elif letter== "s":
+        print(s)
+        GPIO.output(2, 0)
+        GPIO.output(3, 1)
+        GPIO.output(4, 1)
+        GPIO.output(17, 0)
+        GPIO.output(27, 1)
+        GPIO.output(22, 0)
+        sleep(1)
+    elif letter== "t":
+        print(t)
+        GPIO.output(2, 0)
+        GPIO.output(3, 1)
+        GPIO.output(4, 1)
+        GPIO.output(17, 1)
+        GPIO.output(27, 1)
+        GPIO.output(22, 0)
+        sleep(1)
+    elif letter== "u":
+        print(u)
+        GPIO.output(2, 1)
+        GPIO.output(3, 0)
+        GPIO.output(4, 0)
+        GPIO.output(17, 0)
+        GPIO.output(27, 1)
+        GPIO.output(22, 1)
+        sleep(1)
+    elif letter== "v":
+        print(v)
+        GPIO.output(2, 1)
+        GPIO.output(3, 0)
+        GPIO.output(4, 1)
+        GPIO.output(17, 0)
+        GPIO.output(27, 1)
+        GPIO.output(22, 1)
+        sleep(1)
+    elif letter== "w":
+        print(w)
+        GPIO.output(2, 0)
+        GPIO.output(3, 1)
+        GPIO.output(4, 1)
+        GPIO.output(17, 1)
+        GPIO.output(27, 0)
+        GPIO.output(22, 1)
+        sleep(1)
+    elif letter== "x":
+        print(x)
+        GPIO.output(2, 1)
+        GPIO.output(3, 1)
+        GPIO.output(4, 0)
+        GPIO.output(17, 0)
+        GPIO.output(27, 1)
+        GPIO.output(22, 1)
+        sleep(1)
+    elif letter== "y":
+        print(y)
+        GPIO.output(2, 1)
+        GPIO.output(3, 1)
+        GPIO.output(4, 0)
+        GPIO.output(17, 1)
+        GPIO.output(27, 1)
+        GPIO.output(22, 1)
+        sleep(1)
+    elif letter== "z":
+        print(z)
+        GPIO.output(2, 1)
+        GPIO.output(3, 0)
+        GPIO.output(4, 0)
+        GPIO.output(17, 1)
+        GPIO.output(27, 1)
+        GPIO.output(22, 1)
+        sleep(1)
+    elif letter== ".":
+        print(dot)
+        GPIO.output(2, 0)
+        GPIO.output(3, 0)
+        GPIO.output(4, 1)
+        GPIO.output(17, 1)
+        GPIO.output(27, 0)
+        GPIO.output(22, 1)
+        sleep(1)
+    elif letter== ",":
+        print(comma)
+        GPIO.output(2, 0)
+        GPIO.output(3, 0)
+        GPIO.output(4, 1)
+        GPIO.output(17, 0)
+        GPIO.output(27, 0)
+        GPIO.output(22, 0)
+        sleep(1)
+    elif letter== "?":
+        print(qstn)
+        GPIO.output(2, 0)
+        GPIO.output(3, 0)
+        GPIO.output(4, 1)
+        GPIO.output(17, 0)
+        GPIO.output(27, 1)
+        GPIO.output(22, 1)
+        sleep(1)
+    elif letter== "!":
+        print(exclm)
+        GPIO.output(2, 0)
+        GPIO.output(3, 0)
+        GPIO.output(4, 1)
+        GPIO.output(17, 1)
+        GPIO.output(27, 1)
+        GPIO.output(22, 0)
+        sleep(1)
+    elif letter== "'":
+        print(apos)
+        GPIO.output(2, 0)
+        GPIO.output(3, 0)
+        GPIO.output(4, 0)
+        GPIO.output(17, 0)
+        GPIO.output(27, 1)
+        GPIO.output(22, 0)
+        sleep(1)
+    elif letter== "-":
+        print(hyp)
+        GPIO.output(2, 0)
+        GPIO.output(3, 0)
+        GPIO.output(4, 0)
+        GPIO.output(17, 0)
+        GPIO.output(27, 1)
+        GPIO.output(22, 1)
+        sleep(1)
+    else:
+        print(null)
+        GPIO.output(2, 0)
+        GPIO.output(3, 0)
+        GPIO.output(4, 0)
+        GPIO.output(17, 0)
+        GPIO.output(27, 0)
+        GPIO.output(22, 0)
+        sleep(1)
+new.close()
+
+GPIO.cleanup()
+print ("Bye")
