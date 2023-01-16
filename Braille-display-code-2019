@@ -442,4 +442,3 @@ for each in range(len_of_text):
 new.close()
 
 GPIO.cleanup()
-print ("Bye")
